@@ -1,4 +1,5 @@
 ﻿using Agenda.Domain;
+using Dapper;
 using Microsoft.Data.SqlClient;
 using System.Configuration;
 
@@ -15,34 +16,18 @@ public class Contatos
 
     public void Adicionar(Contato contato)
     {
-        using(var con = new SqlConnection(_connectionString))
+        using (var con = new SqlConnection(_connectionString))
         {
-            con.Open();
-
-            var sql = $"INSERT INTO Contato (Id, Nome) VALUES ('{contato.Id}', '{contato.Nome}')";
-            var cmd = new SqlCommand(sql, con);
-            cmd.ExecuteNonQuery();
+            con.Execute("INSERT INTO Contato (Id, Nome) VALUES (@Id, @Nome)", contato);
         }
     }
 
-    public Contato Obter(Guid Id)
+    public Contato Obter(Guid id)
     {
         Contato contato;
         using (var con = new SqlConnection(_connectionString))
         {
-            con.Open();
-
-            var sql = $"SELECT Id, Nome FROM Contato WHERE Id = '{Id}'";
-            var cmd = new SqlCommand(sql, con);
-
-            var sqlDataReader = cmd.ExecuteReader();
-            sqlDataReader.Read();
-
-            contato = new Contato
-            {
-                Id = Guid.Parse(sqlDataReader["Id"].ToString()),
-                Nome = sqlDataReader["Nome"].ToString()
-            };
+            contato = con.QueryFirst<Contato>("SELECT Id, Nome FROM Contato WHERE Id = @Id", new { Id = id });
         }
         return contato;
     }
@@ -52,23 +37,9 @@ public class Contatos
         var contatos = new List<Contato>();
         using (var con = new SqlConnection(_connectionString))
         {
-            con.Open();
-
-            var sql = $"SELECT Id, Nome FROM Contato";
-            var cmd = new SqlCommand(sql, con);
-
-            var sqlDataReader = cmd.ExecuteReader();
-
-            while (sqlDataReader.Read())
-            {
-                var contato = new Contato
-                {
-                    Id = Guid.Parse(sqlDataReader["Id"].ToString()),
-                    Nome = sqlDataReader["Nome"].ToString()
-                };
-                contatos.Add(contato);
-            }
+            contatos = con.Query<Contato>("SELECT Id, Nome FROM Contato").ToList();
         }
+
         return contatos;
     }
 }
