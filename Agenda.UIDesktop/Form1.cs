@@ -21,12 +21,12 @@ namespace Agenda.UIDesktop
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             string name = TxtContatoNovo.Text;
-            string Id = Guid.NewGuid().ToString();
-            TxtContatoSalvo.Text = name;
+            //TxtContatoSalvo.Text = name;
 
             //conexão com o banco de dados
             string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Agenda;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            SqlConnection con = new SqlConnection(connectionString);
+            string Id = Guid.NewGuid().ToString();
+            var con = new SqlConnection(connectionString);
 
             con.Open();
 
