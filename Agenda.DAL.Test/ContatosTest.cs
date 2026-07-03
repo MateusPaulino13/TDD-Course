@@ -1,13 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyModel;
 using NUnit.Framework;
 using Agenda.Domain;
+using AutoFixture;
 
 namespace Agenda.DAL.Test
 {
     [TestFixture]
-    public class ContatosTest
+    public class ContatosTest : BaseTest
     {
         private Contatos _contatos;
+        private Fixture _fixture;
 
         [SetUp]
         public void Setup()
