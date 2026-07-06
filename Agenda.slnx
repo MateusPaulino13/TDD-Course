@@ -2,5 +2,6 @@
   <Project Path="Agenda.DAL.Test/Agenda.DAL.Test.csproj" Id="a1978197-cf10-43a2-9cae-28f6d5a094b4" />
   <Project Path="Agenda.DAL/Agenda.DAL.csproj" Id="5e872e67-02c6-4ea7-b493-1a4a4bce8ec1" />
   <Project Path="Agenda.Domain/Agenda.Domain.csproj" Id="009f968a-18dc-4853-aa12-0d1187e3c104" />
+  <Project Path="Agenda.Repos/Agenda.Repos.csproj" Id="9845788e-a05f-44dd-ba12-bdd4888e9501" />
   <Project Path="Agenda.UIDesktop/Agenda.UIDesktop.csproj" Id="f2758fea-b6d9-4378-80e7-2438f4d2b0f4" />
 </Solution>
