@@ -3,9 +3,6 @@ using Agenda.Domain;
 using AutoFixture;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Agenda.Repos.Test
 {
@@ -30,11 +27,11 @@ namespace Agenda.Repos.Test
         public void DeveSerPossivelObterContatoComListaTelefonica()
         {
             var ltsTelefone = new List<ITelefone>();
-            Guid telefoneId = Guid.NewGuid();
-            Guid contatoId = Guid.NewGuid();
+            var telefoneId = Guid.NewGuid();
+            var contatoId = Guid.NewGuid();
 
             //arrange
-            Mock<IContato> mContato = IContatoConstr
+            var mContato = IContatoConstr
                 .Um()
                 .ComId(contatoId)
                 .ComNome(_fixture.Create<string>())
@@ -42,7 +39,7 @@ namespace Agenda.Repos.Test
             mContato.SetupSet(c => c.Telefones = It.IsAny<List<ITelefone>>()).Callback<List<ITelefone>>(x => ltsTelefone = x);
             _contatos.Setup(x => x.Obter(contatoId)).Returns(mContato.Object);
 
-            ITelefone mockTelefone = ITelefoneConstr
+            var mockTelefone = ITelefoneConstr
                 .Um()
                 .Padrao()
                 .ComId(telefoneId)

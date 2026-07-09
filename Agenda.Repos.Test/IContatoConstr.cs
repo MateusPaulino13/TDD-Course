@@ -7,36 +7,26 @@ using System.Text;
 
 namespace Agenda.Repos.Test
 {
-    public class IContatoConstr
+    public class IContatoConstr : BaseConstr<IContato>
     {
-        private readonly Mock<IContato> _mockContato;
-        private readonly Fixture _fixture;
-
-        protected IContatoConstr(Mock<IContato> mockContato, Fixture fixture)
+        protected IContatoConstr() : base(new Mock<IContato>(), new Fixture())
         {
-            _mockContato = mockContato;
-            _fixture = fixture;
         }
 
         public static IContatoConstr Um()
         {
-            return new IContatoConstr(new Mock<IContato>(), new Fixture());
-        }
-
-        public Mock<IContato> ObterMock()
-        {
-            return _mockContato;
+            return new IContatoConstr();
         }
 
         public IContatoConstr ComNome(string nome)
         {
-            _mockContato.SetupGet(c => c.Nome).Returns(nome);
+            _mock.SetupGet(c => c.Nome).Returns(nome);
             return this;
         }
 
         public IContatoConstr ComId(Guid id)
         {
-            _mockContato.SetupGet(c => c.Id).Returns(id);
+            _mock.SetupGet(c => c.Id).Returns(id);
             return this;
         }
     }
