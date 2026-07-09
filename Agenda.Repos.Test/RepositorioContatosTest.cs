@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using Agenda.DAL;
+using Moq;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,8 +10,17 @@ namespace Agenda.Repos.Test
     [TestFixture]
     public class RepositorioContatosTest
     {
+        Mock<IContatos> _contatos;
+        Mock<ITelefones> _telefones;
+        RepositorioContatos _repositorioContatos;
+
         [SetUp] 
-        public void SetUp() { }
+        public void SetUp() 
+        {
+            _contatos = new Mock<IContatos>();
+            _telefones = new Mock<ITelefones>();
+            _repositorioContatos = new RepositorioContatos(_contatos.Object, _telefones.Object);
+        }
 
         [Test]
         public void Test()
@@ -18,6 +29,11 @@ namespace Agenda.Repos.Test
         }
         
         [TearDown]
-        public void TearDown() { }
+        public void TearDown() 
+        {
+            _contatos = null;
+            _telefones = null;
+            _repositorioContatos = null;
+        }
     }
 }
